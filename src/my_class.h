@@ -1,16 +1,27 @@
-//
-// Created by Jason Evans on 17/07/2026.
-//
+#ifndef MY_CLASS_H
+#define MY_CLASS_H
 
-#ifndef GD_EXTENSION_CPP_EXAMPLE_MY_CLASS_H
-#define GD_EXTENSION_CPP_EXAMPLE_MY_CLASS_H
+#include <godot_cpp/classes/node.hpp>
 
+namespace godot {
 
+    class MyClass : public Node {
+        GDCLASS(MyClass, Node)
 
-class my_class {
+    private:
+        int counter = 0;
 
-};
+    protected:
+        static void _bind_methods();
 
+    public:
+        MyClass();
+        ~MyClass();
 
+        void increment();
+        int get_counter() const;
+    };
 
-#endif //GD_EXTENSION_CPP_EXAMPLE_MY_CLASS_H
+}
+
+#endif

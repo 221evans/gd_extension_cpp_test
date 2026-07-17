@@ -1,16 +1,9 @@
-//
-// Created by Jason Evans on 17/07/2026.
-//
+#ifndef MY_REGISTER_TYPES_H
+#define MY_REGISTER_TYPES_H
 
-#ifndef GD_EXTENSION_CPP_EXAMPLE_REGISTER_TYPES_H
-#define GD_EXTENSION_CPP_EXAMPLE_REGISTER_TYPES_H
+#include <godot_cpp/core/class_db.hpp>
 
+void initialize_my_module(godot::ModuleInitializationLevel p_level);
+void uninitialize_my_module(godot::ModuleInitializationLevel p_level);
 
-
-class register_types {
-
-};
-
-
-
-#endif //GD_EXTENSION_CPP_EXAMPLE_REGISTER_TYPES_H
+#endif
