@@ -3,6 +3,8 @@
 //
 
 #include "player.h"
+#include <godot_cpp/classes/engine.hpp>
+
 using namespace godot;
 
 void Player::_bind_methods() {
@@ -10,36 +12,44 @@ void Player::_bind_methods() {
 }
 
 Player::Player() {
-
+    attacking = false;
 }
 
-Player::~Player() {
-}
+Player::~Player() = default;
 
 void Player::HandleInput(const Input *input, double deltaTime) {
 
     Vector2 velocity;
 
-    if (input->is_action_pressed("move_right")) {
+    attacking = input->is_action_pressed("attack_side");
+
+    if (attacking) {
+        sprite->play("Attack-Side");
+    }
+    else if (input->is_action_pressed("attack_side")) {
+        sprite->play("Attack-Side");
+    }
+
+    else if (input->is_action_pressed("move_right")) {
         velocity.x += 1;
         sprite->play("Walk-Side");
         sprite->set_flip_h(false);
     }
-    if (input->is_action_pressed("move_left")) {
+    else if (input->is_action_pressed("move_left")) {
         velocity.x -= 1;
         sprite->play("Walk-Side");
         sprite->set_flip_h(true);
     }
-    if (input->is_action_pressed("move_up")) {
+    else if (input->is_action_pressed("move_up")) {
         velocity.y -= 1;
         sprite->play("Walk-Up");
     }
-    if (input->is_action_pressed("move_down")) {
+    else if (input->is_action_pressed("move_down")) {
         velocity.y += 1;
         sprite->play("Walk-Down");
 
     }
-    if (velocity.x == 0 && velocity.y == 0) {
+    else if (velocity.x == 0 && velocity.y == 0) {
         sprite->play("Idle-Side");
     }
 
@@ -50,10 +60,14 @@ void Player::HandleInput(const Input *input, double deltaTime) {
 void Player::_ready() {
     set_position(Vector2(100,200));
     sprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
-    sprite->play("Idle-Side");
 }
 
 void Player::_process(double deltaTime) {
+
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
     HandleInput(Input::get_singleton(), deltaTime);
 }
 

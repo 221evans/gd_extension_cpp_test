@@ -9,6 +9,7 @@
 #include "godot_cpp/classes/animated_sprite2d.hpp"
 #include "godot_cpp/classes/input.hpp"
 
+
 namespace godot {
 
     class Player : public Node2D {
@@ -17,6 +18,7 @@ namespace godot {
     private:
         // Data goes here
         AnimatedSprite2D *sprite = nullptr;
+        bool attacking;
 
     protected:
         static void _bind_methods();
@@ -30,8 +32,5 @@ namespace godot {
         void _process(double deltaTime) override;
     };
 }
-
-
-
 
 #endif //GD_EXTENSION_CPP_EXAMPLE_PLAYER_H
